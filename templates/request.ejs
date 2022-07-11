@@ -1,0 +1,63 @@
+<%- include('includes/header'); -%>
+    <table>
+
+        <%if (Location) { %>
+            <tr>
+                <td>
+                    Loction
+                </td>
+                <td>
+                    <%= Location %>
+                </td>
+            </tr>
+            <% } %>
+                <%if (date) { %>
+                    <tr>
+                        <td>
+                            Date
+                        </td>
+                        <td>
+                            <%= new Date(date).toLocaleDateString() %>
+                                <%if (time) { %>
+                                    <%= time %>
+                                        <% } %>
+                        </td>
+                    </tr>
+                    <% } %>
+
+                        <%if (NoofFiles) { %>
+                            <tr>
+                                <td>
+                                    NoofPages
+                                </td>
+                                <td>
+                                    <%= NoofFiles %>
+                                </td>
+                            </tr>
+                            <% } %>
+
+                                <%if (Remark) { %>
+                                    <tr>
+                                        <td>
+                                            Remark
+                                        </td>
+                                        <td>
+                                            <%= Remark %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+
+                                        <%if (requestType) { %>
+                                            <tr>
+                                                <td>
+                                                    Request Type
+                                                </td>
+                                                <td>
+                                                    <%= requestType %>
+                                                </td>
+                                            </tr>
+                                            <% } %>;
+
+                           
+    </table>
+    <%- include('includes/footer'); -%>
