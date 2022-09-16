@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 8002
+const port = 8008
 const sql = require('mssql')
 const router = require('./router/router');
 const bodyParser = require('body-parser')
@@ -10,7 +10,7 @@ const path = require("path");
 
 
 const sgMail = require('@sendgrid/mail');
-const Api_Key = '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';
+const Api_Key = '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';
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended:true}))
@@ -32,13 +32,11 @@ app.post('/mail',async(req,res)=>{
     try{
     sgMail.setApiKey(Api_Key);
     const msg= {
-      to:["rupesh.kumar@ilogsolution.com","aman@ilogsolution.com"],
-      from:"awlwms@awlindia.com",
+      to:["swishlohan420@gmail.com","aman@ilogsolution.com"],
+      from:"reports@doxandbox.co.in",
       subject:Subject,
-    
       html:html
                 }
-
     sgMail.send(msg)
      .then(res =>console.log("Mail Send Successfully"))
        .catch(error => console.log(error))

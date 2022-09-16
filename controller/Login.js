@@ -1,15 +1,21 @@
 const sql =require('mssql')
-const sqlConfig = require('../config')
+const sqlConfig1 = require('../database/config1')
 
 const UserLogin = async (req, res) => {
     const uid_id = req.body.uid_id;
     const uid_pass = req.body.uid_pass;
+    console.log(uid_id,uid_pass)
+    // console.log(`select UID,uPWD,uName,CUST_ID,cust_name,WHID from User_Rights 
+    // with(nolock) WHERE uID='${uid_id}  ' AND uPWD='${uid_pass}' AND ISNULL(CUST_NAME,'')<>'' 
+    // AND ISNULL(CUST_ID,'')<>'' and ISNULL(uActive,'')='1'`)
     try{
-        await sql.connect(sqlConfig)
-        const result = await sql.query(`select UID,uPWD,uName,CUST_ID,cust_name,WHID from NEWRMSDB.dbo.User_Rights 
+        const pool = new sql.ConnectionPool(sqlConfig1);
+        await pool.connect();
+        const result = await pool.query(`select UID,uPWD,uName,CUST_ID,cust_name,WHID,uwh from User_Rights 
         with(nolock) WHERE uID='${uid_id}  ' AND uPWD='${uid_pass}' AND ISNULL(CUST_NAME,'')<>'' 
         AND ISNULL(CUST_ID,'')<>'' and ISNULL(uActive,'')='1'`)
-
+        await pool.close()  
+        console.log(result)
         res.send(result.recordset[0])
     }
     catch(err){
