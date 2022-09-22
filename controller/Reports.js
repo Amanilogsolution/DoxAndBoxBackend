@@ -38,11 +38,11 @@ catch(err){
 const RequestReport = async (req, res) => {
     const cust_id = req.body.cust_id;
     const request_type = req.body.request_type;
-    console.log(cust_id,request_type)
+    // console.log(cust_id,location_id)
     
     try{
         await sql.connect(sqlConfig)
-        const result = await sql.query(`select  * from  tbl_rmsrequest with (nolock) where  request_type='${request_type}'  and custid='${cust_id}'`)
+        const result = await sql.query(`select  *,convert(varchar(15),request_date,121) as ActivityDate  from  tbl_rmsrequest with (nolock) where  request_type='${request_type}'  and custid='${cust_id}'`)
         res.send(result.recordset)
     }
     catch(err){
@@ -50,6 +50,24 @@ const RequestReport = async (req, res) => {
         }
     }
 
+    const BoxReport = async (req, res) => {
+        const Boxno = req.body.Boxno;
+        const CUSTID = req.body.CUSTID;
+        const Wh =  req.body.WH
+        console.log(`select distinct t.boxno as Boxno,i.fileNO as Fileno,i.DESCN as Boxname,ItemLocation as Location from TBL_INWARDFILESCAN   t with (nolock) left join tbl_inwardfile i with (nolock) on  t.custid= i.custid and t.WH=i.WH and t.PICKUPNO=i.PICKUPNO
+        where  t.boxno='${Boxno}' and  i.CUSTID='${CUSTID}' and t.WH='${Wh}'`)
+        
+        try{
+            await sql.connect(sqlConfig)
+            const result = await sql.query(`select distinct t.boxno as Boxno,i.fileNO as Fileno,i.DESCN as Filename,ItemLocation as Location from TBL_INWARDFILESCAN   t with (nolock) left join tbl_inwardfile i with (nolock) on  t.custid= i.custid and t.WH=i.WH and t.PICKUPNO=i.PICKUPNO
+            and t.fileno=i.fileno where  t.boxno='${Boxno}' and  i.CUSTID='${CUSTID}' and t.WH='${Wh}'`)
+            res.send(result.recordset)
+        }
+        catch(err){
+            res.send(err)
+            }
+        }
 
 
-module.exports ={Reportdata,ReportdataBoxes,RequestReport}
+
+module.exports ={Reportdata,ReportdataBoxes,RequestReport,BoxReport}

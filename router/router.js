@@ -7,6 +7,7 @@ const reportController = require('../controller/Reports')
 const locationsController = require('../controller/Location')
 const dashboardController = require('../controller/dashboard')
 const DupliacteController = require('../controller/Duplicacy')
+const TwofaAuthController = require('../controller/2FaAuthentication/Twofa')
 
 router.post('/reports',procedureController.Data)
 router.post('/request',procedureController.AddRequest)
@@ -17,6 +18,10 @@ router.post('/profiledetails',profileController.ProfileDetails)
 router.post('/reportdata',reportController.Reportdata)
 router.post('/reportdataboxes',reportController.ReportdataBoxes)
 router.post('/requestreport',reportController.RequestReport)
+router.post('/boxreport',reportController.BoxReport)
+
+router.post('/Twofa',TwofaAuthController.GenerateTwofa)
+router.post('/VerifyTwo',TwofaAuthController.VerifyTwofa)
 
 
 router.post('/totallocation',locationsController.locations)

@@ -52,7 +52,7 @@ const AddRequest = async (req,res) => {
     const Boxno = req.body.Boxno;
     const DESCN = req.body.DESCN
 
-    // console.log(request_type,location,noof_files,request_date,request_time,file_name,retrival_type,delivery_type,noof_pages,onsite,activity,remark,entry_by,FILEID,WHID,requestid,custid,TYPE,Contactperson,Personno,Deparment,Boxno,DESCN)
+    console.log(request_type,location,noof_files,request_date,request_time,file_name,retrival_type,delivery_type,noof_pages,onsite,activity,remark,entry_by,FILEID,WHID,requestid,custid,TYPE,Contactperson,Personno,Deparment,Boxno,DESCN)
    
     try{
         const pool = new sql.ConnectionPool(sqlConfig);

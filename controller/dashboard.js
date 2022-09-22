@@ -63,10 +63,10 @@ const dashbaordetailsBar = async(req,res) =>{
 const dashbaordetailsPie = async(req,res) =>{
   const CUSTID = req.body.CUSTID;
   const wh = req.body.wh;
-  // console.log('Pie',CUSTID,wh)
+  console.log('Pie',CUSTID,wh)
 
   const arr =[]
-  const name =["RecordPickup","RecorRetrival","ShreddingRequest","Scanning","OtherRequest"]
+  const name =["RecordPickup","RecorRetrival","ShreddingRequest","ScanningRequest","OtherRequest"]
 
 
   try{
@@ -74,7 +74,7 @@ const dashbaordetailsPie = async(req,res) =>{
     const result = await sql.query(`select  COUNT(*) as RecordPickup,(select  COUNT(*) as RecorRetrival  from  tbl_rmsrequest
     where request_type='RecorRetrival' and custid='${CUSTID}' and whid='${wh}') as RecorRetrival, (select  COUNT(*) as RecorRetrival  from  tbl_rmsrequest
     where request_type='ShreddingRequest' and custid='${CUSTID}' and whid='${wh}') as ShreddingRequest,(select  COUNT(*) as RecorRetrival  from  tbl_rmsrequest
-    where request_type='Scaning' and custid='${CUSTID}' and whid='${wh}') as Scanning,(select  COUNT(*) as RecorRetrival  from  tbl_rmsrequest
+    where request_type='ScanningRequest' and custid='${CUSTID}' and whid='${wh}') as ScanningRequest,(select  COUNT(*) as RecorRetrival  from  tbl_rmsrequest
     where request_type='OtherRequest' and custid='${CUSTID}' and whid='${wh}') as OtherRequest from  tbl_rmsrequest
     where request_type='RecordPickup' and custid='${CUSTID}' and whid='${wh}'`)
     // console.log((result.recordset))
@@ -86,9 +86,6 @@ const dashbaordetailsPie = async(req,res) =>{
     res.send(arr)
 
     console.log(arr)
-
-    
-
   }
   catch(err){
     res.send(err)
