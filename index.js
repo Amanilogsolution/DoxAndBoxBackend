@@ -19,6 +19,10 @@ app.set('view engine', 'ejs');
 
 app.use('/api',router)
 
+app.get('/',function(req,res){
+res.send('Hlo')
+})
+
 app.post('/mail',async(req,res)=>{
     const {Subject,message} = req.body
 
