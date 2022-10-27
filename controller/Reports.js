@@ -54,8 +54,7 @@ const RequestReport = async (req, res) => {
         const Boxno = req.body.Boxno;
         const CUSTID = req.body.CUSTID;
         const Wh =  req.body.WH
-        console.log(`select distinct t.boxno as Boxno,i.fileNO as Fileno,i.DESCN as Boxname,ItemLocation as Location from TBL_INWARDFILESCAN   t with (nolock) left join tbl_inwardfile i with (nolock) on  t.custid= i.custid and t.WH=i.WH and t.PICKUPNO=i.PICKUPNO
-        where  t.boxno='${Boxno}' and  i.CUSTID='${CUSTID}' and t.WH='${Wh}'`)
+ 
         
         try{
             await sql.connect(sqlConfig)
@@ -68,6 +67,22 @@ const RequestReport = async (req, res) => {
             }
         }
 
+        const TotalScanReportCount = async (req, res) =>{
+            const custid = req.body.custid;
+            const wh = req.body.wh;
+            const startdate = req.body.startdate;
+            const enddate = req.body.enddate;
+            try{
+                await sql.connect(sqlConfig)
+                const result = await sql.query(`select  sum(cast(noofpagescan as INT)) as Pagescan,sum(cast(NOFilescan  as INT)) as TotalFile   from tbl_Scanrecord where custid='${custid}' and wh='${wh}' and CONVERT(date,Scandate) between '${startdate}' and '${enddate}'`)
+                res.send(result.recordset)
+
+            }
+            catch(err){
+
+            }
+
+        }
 
 
-module.exports ={Reportdata,ReportdataBoxes,RequestReport,BoxReport}
+module.exports ={Reportdata,ReportdataBoxes,RequestReport,BoxReport,TotalScanReportCount}
