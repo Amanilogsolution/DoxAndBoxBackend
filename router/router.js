@@ -19,6 +19,7 @@ router.post('/reportdata',reportController.Reportdata)
 router.post('/reportdataboxes',reportController.ReportdataBoxes)
 router.post('/requestreport',reportController.RequestReport)
 router.post('/boxreport',reportController.BoxReport)
+router.post('/totalscanreportcount',reportController.TotalScanReportCount)
 
 router.post('/Twofa',TwofaAuthController.GenerateTwofa)
 router.post('/VerifyTwo',TwofaAuthController.VerifyTwofa)
