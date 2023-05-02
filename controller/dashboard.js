@@ -93,4 +93,31 @@ const dashbaordetailsPie = async(req,res) =>{
 
 }
 
-module.exports = {dashboardetails,dashbaordetailsBar,dashbaordetailsPie}
+const dashbaorScannedPages = async(req,res) =>{
+  const custid = req.body.custid;
+  const whid = req.body.whid;
+
+  try{
+    await sql.connect(sqlConfig)
+    const result = await sql.query(`
+    select sum(cast(t.targetpage AS INT)) AS TotalPages, (select sum(cast(noofpagescan AS INT)) from NEWRMSDB.dbo.tbl_Scanrecord s LEFT JOIN
+NEWAWLDB.dbo.tbl_customer AS c WITH (nolock) ON s.custid=c.custid
+LEFT JOIN NEWAWLDB.dbo.tbl_whmaster AS w WITH (nolock) ON s.wh=w.WHid
+where  s.custid=t.custid and s.wh=t.whid) as ScannedPages,t.custid from NEWRMSDB.dbo.tbl_targetmaster  t where t.custid='${custid}' and t.whid ='${whid}'
+group by t.custid,t.whid
+    `)
+
+ 
+    res.status(200).json({
+      "TotalPages": result.recordset[0].TotalPages,
+      "ScannedPages": result.recordset[0].ScannedPages
+    })
+
+  }
+  catch(err){
+    res.send(err)
+    }
+
+}
+
+module.exports = {dashboardetails,dashbaordetailsBar,dashbaordetailsPie,dashbaorScannedPages}

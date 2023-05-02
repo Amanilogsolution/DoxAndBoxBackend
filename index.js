@@ -30,9 +30,11 @@ app.post('/mail',async(req,res)=>{
     if(Subject === 'RecordPickup'){ 
     var html = await ejs.renderFile(path.join(__dirname, `./templates/request.ejs`), message)
     }
+    else if(Subject === 'ScanningRequest'){
+      var html = await ejs.renderFile(path.join(__dirname, `./templates/ScanningRequest.ejs`), message)
+    }
     else if(Subject === 'Report'){
     }
-
     try{
     sgMail.setApiKey(Api_Key);
     const msg= {
@@ -45,7 +47,6 @@ app.post('/mail',async(req,res)=>{
      .then(res =>console.log("Mail Send Successfully"))
        .catch(error => console.log(error))
   }
-
   catch(err){
     console.log(err)
 

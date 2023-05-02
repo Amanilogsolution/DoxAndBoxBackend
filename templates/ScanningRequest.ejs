@@ -18,9 +18,7 @@
                         </td>
                         <td>
                             <%= new Date(date).toLocaleDateString() %>
-                                <%if (time) { %>
-                                    <%= time %>
-                                        <% } %>
+                               
                         </td>
                     </tr>
                     <% } %>
@@ -57,6 +55,16 @@
                                                 </td>
                                             </tr>
                                             <% } %>;
+                                            <%if (requestid) { %>
+                                                <tr>
+                                                    <td>
+                                                        Request ID
+                                                    </td>
+                                                    <td>
+                                                        <%= requestid %>
+                                                    </td>
+                                                </tr>
+                                                <% } %>;
 
                            
     </table>
