@@ -9,6 +9,7 @@ const dashboardController = require('../controller/dashboard')
 const DupliacteController = require('../controller/Duplicacy')
 const TwofaAuthController = require('../controller/2FaAuthentication/Twofa')
 
+const IdController = require('../controller/SeriesCount')
 router.post('/reports',procedureController.Data)
 router.post('/request',procedureController.AddRequest)
 
@@ -30,9 +31,11 @@ router.post('/totallocation',locationsController.locations)
 router.post('/dashboardetails',dashboardController.dashboardetails)
 router.get('/bargraph',dashboardController.dashbaordetailsBar)
 router.post('/piegraph',dashboardController.dashbaordetailsPie)
+router.post('/dashbaorscannedpages',dashboardController.dashbaorScannedPages)
 
 
 router.post('/shreddingduplicate',DupliacteController.ShreddingDupliacte)
+router.post('/idcount',IdController.IdCount)
 
 
 

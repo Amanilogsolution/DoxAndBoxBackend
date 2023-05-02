@@ -50,9 +50,11 @@ const AddRequest = async (req,res) => {
     const Personno = req.body.Personno;
     const Deparment = req.body.Deparment;
     const Boxno = req.body.Boxno;
-    const DESCN = req.body.DESCN
+    const DESCN = req.body.DESCN;
+    const Bookingid = req.body.Bookingid;
+    const Webflag = 'Y'
 
-    console.log(request_type,location,noof_files,request_date,request_time,file_name,retrival_type,delivery_type,noof_pages,onsite,activity,remark,entry_by,FILEID,WHID,requestid,custid,TYPE,Contactperson,Personno,Deparment,Boxno,DESCN)
+    console.log(Bookingid)
    
     try{
         const pool = new sql.ConnectionPool(sqlConfig);
@@ -81,8 +83,10 @@ const AddRequest = async (req,res) => {
         .input('Deparment',Deparment)
         .input('Boxno',Boxno)
         .input('DESCN',DESCN)
+        .input('Bookingid',Bookingid)
+        .input('Webflag',Webflag)
         .execute('RMSrequest')
-        // console.log(result)
+      
         res.send(statusCodes.OK)
     }
     catch (err){
