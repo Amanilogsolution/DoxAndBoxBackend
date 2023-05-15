@@ -13,4 +13,18 @@ const IdCount = async (req, res) => {
         }
 }
 
-module.exports={IdCount}
+const UpdateIdCount = async (req, res) => {
+    const whid = req.body.whid;
+    const Idcount = req.body.Idcount;
+    console.log(whid, Idcount)
+    try{
+        await sql.connect(sqlConfig)
+        const result = await sql.query(`update NEWRMSDB.dbo.tbl_whmaster set RMSBookid='${Idcount}' where WHid='${whid}'`)
+        res.send(result.recordset)
+    }
+    catch(err){
+        res.send(err)
+        }
+}
+
+module.exports={IdCount,UpdateIdCount}

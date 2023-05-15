@@ -10,4 +10,16 @@ sqlConfig1 = {
       }
 }
 
+// sqlConfig1 = {
+//   user:'sa',
+//   password:'R!rr!0R114',
+//   database:'NEWAWLDB_T',
+//   server:'192.168.146.143',
+//   options: {
+//       encrypt: false,
+//       trustServerCertificate: true,
+//       SSL:true
+//     }
+// }
+
 module.exports= sqlConfig1

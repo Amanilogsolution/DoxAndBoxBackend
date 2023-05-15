@@ -7,7 +7,6 @@ const Data = async (req,res) => {
     const endDate = req.body.endDate;
     const custId = req.body.custId;
     const Whid = req.body.Whid;
-    console.log(reportType,custId,Whid,startDate,endDate)
    
     try{
         const pool = new sql.ConnectionPool(sqlConfig);
@@ -20,7 +19,6 @@ const Data = async (req,res) => {
         .input('reportType',reportType)
         .execute('DBOXREPORT')
         res.send(result.recordset)
-        console.log(result)
     }
     catch (err){
         res.send(err)
@@ -53,8 +51,6 @@ const AddRequest = async (req,res) => {
     const DESCN = req.body.DESCN;
     const Bookingid = req.body.Bookingid;
     const Webflag = 'Y'
-
-    console.log(Bookingid)
    
     try{
         const pool = new sql.ConnectionPool(sqlConfig);
