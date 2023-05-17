@@ -9,8 +9,7 @@ const ejs = require("ejs");
 const path = require("path");
 
 
-const sgMail = require('@sendgrid/mail');
-const Api_Key = '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';
+
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended:true}))

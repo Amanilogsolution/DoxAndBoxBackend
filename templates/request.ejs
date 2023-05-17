@@ -1,62 +1,45 @@
 <%- include('includes/header'); -%>
     <table>
 
-        <%if (Location) { %>
             <tr>
                 <td>
                     Loction
                 </td>
                 <td>
-                    <%= Location %>
+                    <td><%=Location%></td>
                 </td>
             </tr>
-            <% } %>
-                <%if (date) { %>
+           
+           
                     <tr>
                         <td>
                             Date
                         </td>
                         <td>
-                            <%= new Date(date).toLocaleDateString() %>
-                                <%if (time) { %>
-                                    <%= time %>
-                                        <% } %>
+                            <td><%=Date%></td>
                         </td>
                     </tr>
-                    <% } %>
+                  
 
-                        <%if (NoofFiles) { %>
+
                             <tr>
                                 <td>
-                                    NoofPages
+                                    No of Pages
                                 </td>
                                 <td>
-                                    <%= NoofFiles %>
+                                    <td><%=nooffiles%></td>
                                 </td>
                             </tr>
-                            <% } %>
 
-                                <%if (Remark) { %>
-                                    <tr>
-                                        <td>
-                                            Remark
-                                        </td>
-                                        <td>
-                                            <%= Remark %>
-                                        </td>
-                                    </tr>
-                                    <% } %>
-
-                                        <%if (requestType) { %>
                                             <tr>
                                                 <td>
                                                     Request Type
                                                 </td>
                                                 <td>
-                                                    <%= requestType %>
+                                                    <td><%=RequestType%></td>
                                                 </td>
                                             </tr>
-                                            <% } %>;
+                                        
 
                            
     </table>
