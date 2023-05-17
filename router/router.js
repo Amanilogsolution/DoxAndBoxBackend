@@ -10,6 +10,7 @@ const dashboardController = require('../controller/dashboard')
 const DupliacteController = require('../controller/Duplicacy')
 const TwofaAuthController = require('../controller/2FaAuthentication/Twofa')
 const IdController = require('../controller/SeriesCount')
+const mail = require('../controller/mail')
 
 router.post('/reports', procedureController.Data)
 router.post('/request', procedureController.AddRequest)
@@ -38,5 +39,7 @@ router.post('/dashbaorscannedpages', dashboardController.dashbaorScannedPages)
 router.post('/shreddingduplicate', DupliacteController.ShreddingDupliacte)
 router.post('/idcount', IdController.IdCount)
 router.post('/updateidcount', IdController.UpdateIdCount)
+
+router.post('/mail',mail.Email)
 
 module.exports = router
