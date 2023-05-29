@@ -7,6 +7,8 @@ const Data = async (req,res) => {
     const endDate = req.body.endDate;
     const custId = req.body.custId;
     const Whid = req.body.Whid;
+    const department = req.body.department;
+    console.log(startDate,endDate,reportType,custId,Whid,department)
    
     try{
         const pool = new sql.ConnectionPool(sqlConfig);
@@ -17,6 +19,7 @@ const Data = async (req,res) => {
         .input('custId',custId)
         .input('Whid',Whid)
         .input('reportType',reportType)
+        .input('department',department)
         .execute('DBOXREPORT')
         res.send(result.recordset)
     }
