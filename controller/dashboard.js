@@ -6,25 +6,32 @@ const dashboardetails = async (req, res) => {
   const wh = req.body.wh;
   try {
     await sql.connect(sqlConfig)
-    const result = await sql.query(`select  count(distinct fileno) as Current_month_activefile,(select  count(distinct fileno) as total from TBL_INWARDFILESCAN where
-        CUSTID='${CUSTID}' and WH='${wh}'  and OUTSTATUS is null) as LTActivefile,(select  count(distinct fileno) as Current_month_activefile
-        from TBL_INWARDFILESCAN where CUSTID='${CUSTID}' and WH='${wh}'
-         and  CONVERT(date,ENTRYON) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()) as CurrentMonthFile,
-        (select  count(distinct fileno) as Current_month_activefile
-        from TBL_INWARDFILESCAN where CUSTID='${CUSTID}' and WH='${wh}') as  InwardFileMonth,(select  COUNT(fileno) as Fileno from tbl_RMDN where  CUSTID='${CUSTID}' and WH='${wh}' and
-          CONVERT(date,ENTRYDATE) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()) as OUTCURRENTMONTH,
-          (select  COUNT(fileno) as Fileno from tbl_RMDN where  CUSTID='${CUSTID}' and WH='${wh}' and
-          MDN_POSTdate is  not null ) as TotalOUT,( select  count (boxno)  from TBL_INWARDBOXSCAN where OUTSTATUS is  null and CUSTID='${CUSTID}' and WH='${wh}'
-          and CONVERT(date,ENTRYON) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()) as CurrentMonthActiveBOX,(select  count (boxno) 
-          from TBL_INWARDBOXSCAN where OUTSTATUS is null and CUSTID='${CUSTID}' and WH='${wh}') as Lifettimeactivebox,
-        (select  count (boxno) from TBL_INWARDBOXSCAN where   CUSTID='${CUSTID}' and WH='${wh}'
-           and CONVERT(date,ENTRYON) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate() ) as CurrentInwardbox,
-           (select  count (boxno) from TBL_INWARDBOXSCAN where   CUSTID='${CUSTID}' and WH='${wh}') as TotalLIFETIMEInwardbox,(
-        select  count (BOXNO)  from tbl_RMDNBOX where CUSTID='${CUSTID}' and WH='${wh}' and Mdn_post is not null and 
-          CONVERT(date,ENTRYDATE) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()
-        ) as CurrentOutBox,(select  count (BOXNO)  from tbl_RMDNBOX where CUSTID='${CUSTID}' and WH='${wh}' and Mdn_post is not null) as outboxLifetime
-           from TBL_INWARDFILESCAN where CUSTID='${CUSTID}' and WH='${wh}'
-         and OUTSTATUS is null and  CONVERT(date,ENTRYON) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()`)
+    const result = await sql.query(`select count(distinct fileno) as Current_month_activefile,(select count(distinct fileno) as total from TBL_INWARDFILESCAN where
+    CUSTID='${CUSTID}' and WH='${wh}' and OUTSTATUS
+    is null) as LTActivefile,(select count(distinct fileno) as Current_month_activefile
+    from TBL_INWARDFILESCAN where CUSTID='${CUSTID}' and WH='${wh}' 
+    and CONVERT(date,ENTRYON) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()) as CurrentMonthFile,
+    (select count(distinct fileno) as Current_month_activefile
+    from TBL_INWARDFILESCAN where CUSTID='${CUSTID}' and WH='${wh}')
+    as InwardFileMonth,(select COUNT(fileno) as Fileno from tbl_RMDN where CUSTID='${CUSTID}' and WH='${wh}'
+    and CONVERT(date,ENTRYDATE) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()) as OUTCURRENTMONTH,
+    (select COUNT(distinct fileno) as Fileno from tbl_RMDN where CUSTID='${CUSTID}' and WH='${wh}'
+    and MDN_POSTdate is not null ) as TotalOUT,(select count (boxno) from TBL_INWARDBOXSCAN where OUTSTATUS is null and CUSTID='${CUSTID}'
+    and WH='${wh}'
+    and CONVERT(date,ENTRYON) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()) as CurrentMonthActiveBOX,(select count (boxno)
+    from TBL_INWARDBOXSCAN where OUTSTATUS is null and CUSTID='${CUSTID}' and WH='${wh}')
+    as Lifettimeactivebox,
+    (select count (distinct boxno) from TBL_INWARDFILESCAN where CUSTID='${CUSTID}' and WH='${wh}'
+    and CONVERT(date,ENTRYON) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate() ) as CurrentInwardbox,
+    (select count (distinct boxno) from TBL_INWARDFILESCAN where CUSTID='${CUSTID}' and WH='${wh}')
+    as TotalLIFETIMEInwardbox,(
+    select count (distinct BOXNO) from tbl_RMDNBOX where CUSTID='${CUSTID}' and WH='${wh}'
+    and Mdn_post is not null and
+    CONVERT(date,ENTRYDATE) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()
+    ) as CurrentOutBox,(select count (distinct BOXNO) from tbl_RMDNBOX where CUSTID='${CUSTID}' and WH='${wh}'
+    and Mdn_post is not null) as outboxLifetime
+    from TBL_INWARDFILESCAN where CUSTID='${CUSTID}' and WH='${wh}'
+    and OUTSTATUS is null and CONVERT(date,ENTRYON) between DATEADD(month, DATEDIFF(month, 0,getdate()), 0) and getdate()`)
     res.send(result.recordset[0])
   }
   catch (err) {

@@ -35,6 +35,7 @@ const dataList = [
 
 function Email(req,res){
   const requestData = req.body.requestData;
+  console.log(requestData)
 
   const data = requestData.map(user=>{
     return [user.filenumber,user.Department,user.remark,user.typeofretrival,user.typeofdelivery]
@@ -57,8 +58,8 @@ function Email(req,res){
 }
 
 
-const RecurringEmail = async(requestData)=>{
-  // console.log(requestData)
+const RecurringEmail = async(requestData,req,res)=>{
+  console.log(requestData)
       subject = `Web Request from DoxAndBox portal `
       var html = await ejs.renderFile(path.join(__dirname, `../templates/request.ejs`),requestData[0])
 
@@ -74,8 +75,6 @@ const RecurringEmail = async(requestData)=>{
 
       console.log(credentials.recordset[0])
       console.log(customerMail.recordset[0])
-
-
 
 
       let transporter =  nodemailer.createTransport({
@@ -102,13 +101,13 @@ const RecurringEmail = async(requestData)=>{
   
         ]
       })
-  
-      // res.send(info)
-  
+
     }
     catch(err){
       console.log(err);
     } 
   }
+
+
 
   module.exports = {Email}
