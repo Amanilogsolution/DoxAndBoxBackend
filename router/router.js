@@ -11,6 +11,10 @@ const DupliacteController = require('../controller/Duplicacy')
 const TwofaAuthController = require('../controller/2FaAuthentication/Twofa')
 const IdController = require('../controller/SeriesCount')
 const mail = require('../controller/mail')
+const FileUpload = require('../controller/fileupload')
+const Multer = require('../Middleware/multer')
+
+const countController = require('../controller/SerialController')
 
 router.post('/reports', procedureController.Data)
 router.post('/request', procedureController.AddRequest)
@@ -41,5 +45,11 @@ router.post('/idcount', IdController.IdCount)
 router.post('/updateidcount', IdController.UpdateIdCount)
 
 router.post('/mail',mail.Email)
+router.post('/FileUpload',Multer,FileUpload)
+
+router.post('/lastcount',countController.lastcount)
+router.post('/updatecount',countController.UpdateCount)
+
+
 
 module.exports = router
