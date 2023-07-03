@@ -9,10 +9,11 @@ const UserLogin = async (req, res) => {
         const pool = new sql.ConnectionPool(sqlConfig1);
         await pool.connect();
         const result = await pool.query(`select UID,uPWD,uName,CUST_ID,cust_name,WHID,uwh,Dptname from User_Rights 
-        with(nolock) WHERE uID='${uid_id}  ' AND uPWD='${uid_pass}' AND ISNULL(CUST_NAME,'')<>'' 
-        AND ISNULL(CUST_ID,'')<>'' and ISNULL(uActive,'')='1'`)
+        with(nolock) WHERE uID='${uid_id}  ' AND uPWD='${uid_pass}' 
+         and ISNULL(uActive,'')='1'`)
         await pool.close()  
         res.send(result.recordset[0])
+        console.log(result.recordset[0])
     }
     catch(err){
         res.send(err)

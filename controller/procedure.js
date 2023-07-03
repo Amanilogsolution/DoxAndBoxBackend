@@ -8,7 +8,7 @@ const Data = async (req,res) => {
     const custId = req.body.custId;
     const Whid = req.body.Whid;
     const department = req.body.department;
-    console.log(startDate,endDate,reportType,custId,Whid,department)
+    console.log('hlo',startDate,endDate,reportType,custId,Whid,department)
    
     try{
         const pool = new sql.ConnectionPool(sqlConfig);
