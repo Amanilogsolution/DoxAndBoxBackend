@@ -2,7 +2,7 @@ sqlConfig1 = {
     user:'app_dbadmin',
     password:'#@)#n%^$4?#?$',
     database:'NEWAWLDB',
-    server:'182.76.62.178',
+    server:'192.168.146.33',
     options: {
         encrypt: false,
         trustServerCertificate: true,
@@ -21,5 +21,7 @@ sqlConfig1 = {
 //       SSL:true
 //     }
 // }
+
+
 
 module.exports= sqlConfig1
