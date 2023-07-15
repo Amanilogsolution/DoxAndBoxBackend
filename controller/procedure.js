@@ -53,6 +53,7 @@ const AddRequest = async (req,res) => {
     const Boxno = req.body.Boxno;
     const DESCN = req.body.DESCN;
     const Bookingid = req.body.Bookingid;
+    const city = req.body.city;
     const Webflag = 'Y'
    
     try{
@@ -84,8 +85,8 @@ const AddRequest = async (req,res) => {
         .input('DESCN',DESCN)
         .input('Bookingid',Bookingid)
         .input('Webflag',Webflag)
+        .input('City',city)
         .execute('RMSrequest')
-      
         res.send(statusCodes.OK)
     }
     catch (err){

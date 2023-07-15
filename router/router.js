@@ -15,6 +15,8 @@ const FileUpload = require('../controller/fileupload')
 const Multer = require('../Middleware/multer')
 
 const countController = require('../controller/SerialController')
+const PortalController = require('../controller/userportalrequest')
+const ActivityRequetController = require('../controller/Activity')
 
 router.post('/reports', procedureController.Data)
 router.post('/request', procedureController.AddRequest)
@@ -49,6 +51,20 @@ router.post('/FileUpload',Multer,FileUpload)
 
 router.post('/lastcount',countController.lastcount)
 router.post('/updatecount',countController.UpdateCount)
+
+router.post('/insertscannerportaldetails',PortalController.insertscannerportaldetails)
+
+router.post('/scannerportaldatamorethanone',PortalController.scannerportaldatamorethanone)
+router.post('/totalportalrequest',PortalController.totalportalrequest)
+router.post('/totalscannerdetails',PortalController.totalscannerdetails)
+router.post('/getportalrequest',PortalController.getportalrequest)
+router.post('/updateportalrequest',PortalController.updateportalrequest)
+router.post('/requestidforuser',PortalController.requestidforuser)
+
+
+router.post('/activityrequest',ActivityRequetController.Activityrequest)
+
+
 
 
 

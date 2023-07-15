@@ -6,8 +6,6 @@ const {
   const uuidv1 = require("uuid/v1");
   
   
-  
-  
   const fileUpload =  async (req, res,next) => {
   let images = [];
   console.log(req.files)
@@ -29,15 +27,10 @@ const {
       const uploadOptions = { bufferSize: 4 * 1024 * 1024, maxConcurrency: 20 };
       const getStream = require("into-stream");
       const contanierName = "awlvendorportal";
-      console.log()
-
-      const data = reqfile.originalname.split(".")
-      console.log(data);
-
-      return false
+      const mimetype = reqfile.mimetype.split("/")
+      console.log(mimetype[1])
    
-  
-      const blobName =  uuidv1() +  "-" + reqfile.originalname;
+      const blobName =  uuidv1() +  "-" + reqfile.originalname + "." + mimetype[1];
       images.push(blobName)
       const stream = getStream(reqfile.buffer);
       const containerClient = blobServiceClient.getContainerClient(
@@ -53,10 +46,10 @@ const {
       );
     });
   
-    //     const Upload = `https://swimlocker.blob.core.windows.net/awlvendorportal/`+images[0];
-    //   console.log(Upload)
+        const Upload = `https://swimlocker.blob.core.windows.net/awlvendorportal/`+images[0];
+      console.log(Upload)
   
-    // res.status(200).send(Upload)
+    res.status(200).send(Upload)
   
   } catch (err) {
     console.log(err)
