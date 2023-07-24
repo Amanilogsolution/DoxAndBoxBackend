@@ -5,10 +5,6 @@ const XLSX = require("xlsx");
 const sql = require('mssql')
 const sqlConfig = require('../database/config')
 
-
-
-
-
 const workSheetRecurringColumnName =[
   "File Number",
   "Department",
@@ -63,16 +59,11 @@ const RecurringEmail = async(requestData,req,res)=>{
       subject = `Web Request from DoxAndBox portal `
       var html = await ejs.renderFile(path.join(__dirname, `../templates/request.ejs`),requestData[0])
 
-
-  
     try {
 
       await sql.connect(sqlConfig)
-
       const credentials = await sql.query(`select UNAME,UPASS From Tbl_mailconfig  with (nolock) where  [flag] =2`)
-
       const customerMail = await sql.query(`select [CustMailID] ,[MailID] ,[CCMailID] From RMSPORTAL_Cust with (nolock) where  mailsent ='YES' and custid='ORBIS' and wh='GGN2'`)
-
       console.log(credentials.recordset[0])
       console.log(customerMail.recordset[0])
 
