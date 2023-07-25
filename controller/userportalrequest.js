@@ -80,8 +80,9 @@ const totalportalrequest = async (req, res) => {
         await sql.connect(sqlConfig)
 
         if(requesttype=== "all"){
-            const result = await sql.query(`select  distinct requestid,requesttype,convert(varchar(15),arriveddate,105) as ARRIVEDDATE,portalid  from  NEWRMSDB.dbo.tbl_userportaldetails with (nolock) where entryby='${EntryBy}'
-            order by Arriveddate DESC  `)
+            const result = await sql.query(`select u.Portalid,u.Requestid,convert(varchar(15),arriveddate,105)  as Arriveddate,u.Requesttype,c.custname,c.custid,case when isnull
+            (u.portalstatus,'')='' then 'Open' else 'Close' END AS [RequestStatus] From tbl_UserPortaldetails u with (nolock) left join   tbl_rmsrequest  r with (nolock) on  u.Requestid=r.requestid left join
+            NEWAWLDB.dbo.tbl_customer c with (nolock) on r.custid=c.custid   where u.EntryBy='${EntryBy}'  order by Arriveddate desc `)
             if(result.recordset){
                 res.send(result.recordset)
             }else{
@@ -95,9 +96,7 @@ const totalportalrequest = async (req, res) => {
             }else{
                 res.send('no data')
             }
-        }
-
-     
+        }     
     }
     catch(err){
         res.send(err)
@@ -140,7 +139,25 @@ const requestidforuser = async(req,res) =>{
     catch (err) {
         res.send(err)
     }
+}
+
+const FileUploadinDB = async(req,res) => {
+    const portalid = req.body.portalid;
+    const requestid = req.body.requestid;
+    const custid = req.body.custid;
+    const Imagelink = req.body.Imagelink;
+    const EntryBy = req.body.EntryBy;
+    try{
+        await sql.connect(sqlConfig)
+        const result = await sql.query(`insert into NEWRMSDB.dbo.Dbox_portalimageupload(portalid,requestid,custid,Imagelink,EntryBy,Entryon) 
+        values('${portalid}','${requestid}','${custid}','${Imagelink}','${EntryBy}',getdate())`)
+        res.send(result.recordset)
+        console.log(result.recordset)
+    }
+    catch(err){
+        res.send(err)
+    }
 
 }
 
-module.exports ={insertscannerportaldetails,scannerportaldatamorethanone,totalportalrequest,totalscannerdetails,getportalrequest,updateportalrequest,requestidforuser}
+module.exports ={insertscannerportaldetails,scannerportaldatamorethanone,totalportalrequest,totalscannerdetails,getportalrequest,updateportalrequest,requestidforuser,FileUploadinDB}

@@ -46,33 +46,61 @@
         </tr>
 
         <tr>
-            <td><b>Total Pages Scan</b></td>
+            <td><b>NO OF FILES</b></td>
             <td>
-                <%= totalpagesscan %>
+                <%= nooffiles %>
             </td>
         </tr>
         <tr>
             <td>
-                <b>Date OF Scanning</b>
+                <b>PICKUP DATE</b>
             </td>
             <td>
-                <%= new Date(scanningdate).toLocaleDateString() %>
+                <%= new Date(pickupdate).toLocaleDateString() %>
 
             </td>
         </tr>
 
         <tr>
             <td>
-                <b>ON SITE</b>
+                <b>PICKUP TIME</b>
             </td>
             <td>
-                <%= onsite %>
+                <%= pickuptime %>
             </td>
         </tr>
 
         <tr>
             <td>
-               <b> Remark </b>
+               <b> CONTACT PERSON </b>
+            </td>
+            <td>
+                <%= contactperson %>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+               <b>CONTACT PERSON NO</b>
+            </td>
+            <td>
+                <%= contactpersonno %>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+               <b>	
+                CONTACT PERSON DEPT</b>
+            </td>
+            <td>
+                <%= contactpersondept %>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+               <b>REMARKS</b>
             </td>
             <td>
                 <%= remark %>
@@ -81,7 +109,7 @@
 
         <tr>
             <td>
-               <b>Request Date</b>
+               <b>REQUEST DATE</b>
             </td>
             <td>
                 <%= new Date(requestdate).toLocaleDateString() %>

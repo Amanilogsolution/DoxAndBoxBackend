@@ -60,7 +60,7 @@ router.post('/totalscannerdetails',PortalController.totalscannerdetails)
 router.post('/getportalrequest',PortalController.getportalrequest)
 router.post('/updateportalrequest',PortalController.updateportalrequest)
 router.post('/requestidforuser',PortalController.requestidforuser)
-
+router.post('/fileuploadindb',PortalController.FileUploadinDB)
 
 router.post('/activityrequest',ActivityRequetController.Activityrequest)
 
