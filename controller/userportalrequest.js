@@ -129,11 +129,15 @@ const getportalrequest = async(req,res) =>{
 }
 
 const requestidforuser = async(req,res) =>{
-    const empid = req.body.empid
+    const empid = req.body.empid;
+    const reqtype = req.body.reqtype;
+    console.log(`   select distinct r.Requestid From NEWRMSDB.dbo.RMS_requestDBOX r with (nolock) left join NEWRMSDB.dbo.tbl_Dboxallot_emp d with (nolock)
+    on r.Requestid=d.Requestid  left join tbl_rmsrequest t with (nolock) on t.requestid=d.Requestid where d.Allotempid='${empid}'and t.request_type='${reqtype}' and isnull(r.status,'')=''`)
     try{
         await sql.connect(sqlConfig)
-        const result = await sql.query(`select distinct  r.Requestid From  NEWRMSDB.dbo.RMS_requestDBOX  r with (nolock) left join NEWRMSDB.dbo.tbl_Dboxallot_emp  d with (nolock)
-        on r.Requestid=d.Requestid  where d.Allotempid='${empid}' and isnull(r.status,'')=''`)
+        const result = await sql.query(` 
+        select distinct r.Requestid From NEWRMSDB.dbo.RMS_requestDBOX r with (nolock) left join NEWRMSDB.dbo.tbl_Dboxallot_emp d with (nolock)
+        on r.Requestid=d.Requestid  left join tbl_rmsrequest t with (nolock) on t.requestid=d.Requestid where d.Allotempid='${empid}'and t.request_type='${reqtype}' and isnull(r.status,'')=''`)
         res.send(result.recordset)
     }
     catch (err) {
