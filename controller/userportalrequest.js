@@ -82,7 +82,7 @@ const totalportalrequest = async (req, res) => {
         if(requesttype=== "all"){
             const result = await sql.query(`select u.Portalid,u.Requestid,convert(varchar(15),arriveddate,105)  as Arriveddate,u.Requesttype,c.custname,c.custid,case when isnull
             (u.portalstatus,'')='' then 'Open' else 'Close' END AS [RequestStatus] From tbl_UserPortaldetails u with (nolock) left join   tbl_rmsrequest  r with (nolock) on  u.Requestid=r.requestid left join
-            NEWAWLDB.dbo.tbl_customer c with (nolock) on r.custid=c.custid   where u.EntryBy='${EntryBy}'  order by Arriveddate desc `)
+            NEWAWLDB.dbo.tbl_customer c with (nolock) on r.custid=c.custid   where u.EntryBy='${EntryBy}'  order by u.Arriveddate desc `)
             if(result.recordset){
                 res.send(result.recordset)
             }else{
